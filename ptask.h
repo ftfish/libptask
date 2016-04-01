@@ -22,16 +22,16 @@ enum ptask_status {
 };
 
 /**
- * @type ptask_context_t
+ * @type ptask_t
  * @brief context container
  */
-typedef struct ptask_context_s ptask_context_t;
+typedef struct ptask_context_s ptask_t;
 
 /**
  * @fn ptask_init
  * @brief initialize threads
  */
-ptask_context_t *ptask_init(
+ptask_t *ptask_init(
 	void *(*worker)(void *arg, void *item),
 	void *worker_arg[],
 	int64_t num_threads,
@@ -41,13 +41,13 @@ ptask_context_t *ptask_init(
  * @fn ptask_clean
  */
 void ptask_clean(
-	ptask_context_t *ctx);
+	ptask_t *ctx);
 
 /**
  * @fn ptask_parallel
  */
 int ptask_parallel(
-	ptask_context_t *ctx,
+	ptask_t *ctx,
 	void *items[],
 	void *results[]);
 
@@ -56,7 +56,7 @@ int ptask_parallel(
  * @brief get an item from source, throw it to worker, and gather the results into drain.
  */
 int ptask_stream(
-	ptask_context_t *ctx,
+	ptask_t *ctx,
 	void *(*source)(void *arg),
 	void *source_arg,
 	void (*drain)(void *arg, void *result),

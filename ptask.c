@@ -62,6 +62,7 @@ void *ptask_dispatcher(void *s)
 		void *item;		/* pointer to item */
 		if(queue_get_wait(c->inq, (void **)&item) == 0) {
 			if(item == PTASK_DISPATCHER_EXIT) { break; }
+			debug("worker_arg(%p), item(%p)", c->worker_arg, item);
 			void *result = c->worker(c->worker_arg, item);
 			queue_put_wait(c->outq, result);
 		}
@@ -82,7 +83,7 @@ int64_t ptask_get_num_cores(
 /**
  * @fn ptask_init
  */
-ptask_context_t *ptask_init(
+ptask_t *ptask_init(
 	void *(*worker)(void *arg, void *item),
 	void *worker_arg[],
 	int64_t num_threads,
@@ -120,14 +121,14 @@ ptask_context_t *ptask_init(
 		pthread_create(&ctx->c[i].th, NULL, ptask_dispatcher, (void *)&ctx->c[i]);
 	}
 	debug("ctx(%p)", ctx);
-	return((ptask_context_t *)ctx);
+	return((ptask_t *)ctx);
 }
 
 /**
  * @fn ptask_clean
  */
 void ptask_clean(
-	ptask_context_t *_ctx)
+	ptask_t *_ctx)
 {
 	struct ptask_context_s *ctx = (struct ptask_context_s *)_ctx;
 	if(ctx == NULL) {
@@ -160,7 +161,7 @@ void ptask_clean(
  * @fn ptask_parallel
  */
 int ptask_parallel(
-	ptask_context_t *_ctx,
+	ptask_t *_ctx,
 	void *items[],
 	void *results[])
 {
@@ -351,7 +352,7 @@ struct ptask_stream_status_s ptask_stream_bulk_drain(
 	});
 }
 int ptask_stream(
-	ptask_context_t *_ctx,
+	ptask_t *_ctx,
 	void *(*source)(void *arg), void *source_arg,
 	void (*drain)(void *arg, void *result), void *drain_arg,
 	int64_t bulk_elems)
