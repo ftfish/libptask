@@ -11,6 +11,7 @@ def configure(conf):
 		conf.check_cc(lib = 'pthread')
 
 	conf.env.append_value('CFLAGS', '-O3')
+	conf.env.append_value('CFLAGS', '-std=c99')
 	conf.env.append_value('CFLAGS', '-march=native')
 
 def build(bld):
