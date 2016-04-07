@@ -22,8 +22,10 @@ def build(bld):
 		lib = ['pthread'])
 
 	bld.program(
-		source = ['queue.c', 'queue_internal.c', 'ptask.c'],
+		source = ['unittest.c'],
 		target = 'unittest',
+		linkflags = ['-all_load'],
+		use = ['ptask'],
 		lib = ['pthread'],
 		defines = ['TEST'])
 

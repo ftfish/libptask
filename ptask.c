@@ -11,12 +11,7 @@
 
 /* import unittest */
 #define UNITTEST_UNIQUE_ID			100
-
-#ifdef TEST
-/* use auto-generated main function to run tests */
 #define UNITTEST 					1
-#define UNITTEST_ALIAS_MAIN			1
-#endif
 
 #include  "unittest.h"
 
@@ -416,7 +411,6 @@ int ptask_stream(
 	return(PTASK_SUCCESS);
 }
 
-#ifdef TEST
 
 /* unittests */
 
@@ -739,8 +733,6 @@ unittest(with_arr(100))
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
 }
-
-#endif /* TEST */
 
 /**
  * end of ptask.c
