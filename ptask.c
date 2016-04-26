@@ -3,17 +3,18 @@
  * @file ptask.c
  * @brief parallel task manager
  */
-#include <stdint.h>
-#include <pthread.h>
-#include "ptask.h"
-#include "queue.h"
-#include "log.h"
 
 /* import unittest */
 #define UNITTEST_UNIQUE_ID			100
 #define UNITTEST 					1
 
 #include  "unittest.h"
+
+#include <stdint.h>
+#include <pthread.h>
+#include "ptask.h"
+#include "queue.h"
+#include "log.h"
 
 
 /**
@@ -622,6 +623,8 @@ unittest(with_arr(100))
 
 	ptask_parallel(p, gctx, (void *)_dst(gctx));
 	assert(unittest_check_working_arr(gctx, 100, 1), "%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -631,6 +634,8 @@ unittest(with_arr(100))
 
 	ptask_parallel(p, gctx, (void *)_dst(gctx));
 	assert(unittest_check_working_arr(gctx, 100, 4), "%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -640,6 +645,8 @@ unittest(with_arr(100))
 
 	ptask_parallel(p, gctx, (void *)_dst(gctx));
 	assert(unittest_check_working_arr(gctx, 100, 1), "%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -649,6 +656,8 @@ unittest(with_arr(100))
 
 	ptask_parallel(p, gctx, (void *)_dst(gctx));
 	assert(unittest_check_working_arr(gctx, 100, 4), "%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -663,6 +672,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -677,6 +688,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -691,6 +704,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -705,6 +720,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 
@@ -720,6 +737,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 unittest(with_arr(100))
@@ -734,6 +753,8 @@ unittest(with_arr(100))
 		0);
 	assert(unittest_check_working_arr(gctx, 100, UNITTEST_WORKING_ARR_LEN),
 		"%s", format_array(gctx));
+
+	ptask_clean(p);
 }
 
 /**

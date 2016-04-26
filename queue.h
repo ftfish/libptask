@@ -22,6 +22,17 @@
   * THE SOFTWARE.
   */
 
+/* for compatibility with -std=c99 (2016/4/26 by Hajime Suzuki) */
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE   200112L
+#endif
+
+#ifndef _BSD_SOURCE
+#define _BSD_SOURCE
+#endif
+/* end */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h> /* (u)intX_t */
