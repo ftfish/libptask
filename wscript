@@ -14,18 +14,24 @@ def configure(conf):
 	conf.env.append_value('CFLAGS', '-std=c99')
 	conf.env.append_value('CFLAGS', '-march=native')
 
+	conf.env.append_value('LIB_PTASK', conf.env.LIB_PTHREAD)
+	conf.env.append_value('OBJ_PTASK', ['queue.o', 'queue_internal.o', 'ptask.o'])
+
 def build(bld):
 
+	bld.objects(source = 'queue.c', target = 'queue.o')
+	bld.objects(source = 'queue_internal.c', target = 'queue_internal.o')
+	bld.objects(source = 'ptask.c', target = 'ptask.o')
+
 	bld.stlib(
-		source = ['queue.c', 'queue_internal.c', 'ptask.c'],
+		source = ['unittest.c'],
 		target = 'ptask',
-		lib = ['pthread'])
+		use = bld.env.OBJ_PTASK,
+		lib = bld.env.LIB_PTASK)
 
 	bld.program(
 		source = ['unittest.c'],
 		target = 'unittest',
-		linkflags = ['-all_load'],
-		use = ['ptask'],
-		lib = ['pthread'],
+		use = bld.env.OBJ_PTASK,
+		lib = bld.env.LIB_PTASK,
 		defines = ['TEST'])
-
