@@ -95,8 +95,10 @@ ptask_t *ptask_init(
 	}
 
 	/* malloc context */
-	struct ptask_context_s *ctx = (struct ptask_context_s *)malloc(
-		sizeof(struct ptask_context_s) + num_threads * sizeof(struct ptask_container_s));
+	uint64_t malloc_size = sizeof(struct ptask_context_s)
+		+ num_threads * sizeof(struct ptask_container_s);
+	struct ptask_context_s *ctx = (struct ptask_context_s *)malloc(malloc_size);
+	memset(ctx, 0, malloc_size);
 
 	/* store params */
 	ctx->num_threads = num_threads;
@@ -479,7 +481,7 @@ int unittest_check_working_arr(
 	char *base = alloca(8 * UNITTEST_WORKING_ARR_LEN); \
 	char *p = base; \
 	for(int64_t i = 0; i < UNITTEST_WORKING_ARR_LEN; i++) { \
-		p += sprintf(p, "%lld, ", dst[i]); \
+		p += sprintf(p, "%" PRId64 ", ", dst[i]); \
 	} \
 	p[-2] = '\0'; \
 	base; \
